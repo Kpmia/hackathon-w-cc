@@ -1,0 +1,67 @@
+{
+  "name": "womanempower",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.10.2",
+    "@material-ui/styles": "^4.10.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "coreui": "^0.4.2-alpha2",
+    "firebase": "^7.15.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-fade-in": "^1.1.0",
+    "react-icons": "^3.10.0",
+    "react-notifications": "^1.6.0",
+    "react-notifications-component": "^2.4.0",
+    "react-power-tooltip": "^1.0.2",
+    "react-redux": "^7.2.0",
+    "react-responsive-modal": "^5.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-select": "^3.1.0",
+    "react-tooltip": "^4.2.7",
+    "reactstrap": "^8.4.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "universal-cookie": "^4.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@coreui/coreui": "^3.2.0",
+    "node-sass": "^4.14.1",
+    "react-scripts": "^3.4.1",
+    "serve": "^11.3.2",
+    "stylelint": "^13.6.0",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.17.2"
+  }
+}
