@@ -88,7 +88,26 @@ body {
     background:#f3705a;
   }
 
+#footer{
+  font-family: 'DM Sans', sans-serif;
+    display:inline-flexbox;
+    position:relative;
+    width: 100%;
+    background:#8e7dbe;
+    padding:40px;
+    overflow: hidden;
+    text-align:center;
+    color:#f1e3d3;
+}
 
+#footer a{
+  background:#bdb3da;
+  border:1px solid transparent;
+  border-radius:10px;
+  color:#50443d;
+  padding:1px;
+  text-decoration:none;
+}
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
