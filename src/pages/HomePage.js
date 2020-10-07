@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'reactstrap';
+import { Button, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, DropdownItem } from 'reactstrap';
 import Posts from '../components/Posts';
 import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
@@ -17,6 +17,7 @@ class HomePage extends React.Component {
             displayName: '',
             post: '',
             allUsers: [],
+            channels: '',
             allPosts: []
         }
     }
@@ -34,7 +35,7 @@ class HomePage extends React.Component {
      }
 
      makePost = () => {
-        PostsManager.writePost(this.state.post, "Funding", this.userInfo.uid)
+        PostsManager.writePost(this.state.post, this.state.channels, this.userInfo)
      }
 
 
@@ -89,6 +90,19 @@ class HomePage extends React.Component {
                 <input onChange={(text) => this.setState({ post: text.target.value })} placeholder="write a post" />
 
                 <Button onClick={this.makePost}> Make post </Button>
+
+                <UncontrolledButtonDropdown>
+                    <DropdownToggle> { this.state.channels ? this.state.channels : "Channel: Channels"}  </DropdownToggle>
+                    <DropdownMenu onClick={(val) => this.setState({ channels : val.target.value })}>
+                        <DropdownItem value="Funding"> Funding </DropdownItem>
+                        <DropdownItem value="Mentors"> Mentors </DropdownItem>
+                        <DropdownItem value="Events"> Events </DropdownItem>
+                        <DropdownItem value="Off-Topic"> Off-Topic </DropdownItem>
+                        <DropdownItem value="General"> General </DropdownItem>
+                    </DropdownMenu>
+
+
+                </UncontrolledButtonDropdown>
 
                 <Posts posts={this.state.allPosts} />
 

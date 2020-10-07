@@ -16,10 +16,12 @@ const PostsManager = {
 
     },
 
-    writePost: async(message, channel, uid) => {
+    writePost: async(message, channel, userInfo) => {
         db.firestore().collection('posts').add({
             message: message,
             channel: channel,
+            uid: userInfo.uid,
+            displayName: userInfo.displayName,
             timestamp: firebase.firestore.Timestamp.fromDate(new Date())
 
         })
