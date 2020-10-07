@@ -1,15 +1,21 @@
 import React from 'react'
 import { Button } from 'reactstrap';
+import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
+import PostsManager from '../networking/PostsManager';
+import ProfileInfo from '../networking/ProfileInfo';
 
 
 class HomePage extends React.Component {
     constructor() {
         super();
+        this.userInfo = []
         this.state={
             password: '',
             email: '',
             displayName: '',
+            post: '',
+            allUsers: []
         }
     }
 
@@ -25,15 +31,26 @@ class HomePage extends React.Component {
         }   
      }
 
-    postUserInfo = () => {
+     makePost = () => {
+        PostsManager.writePost(this.state.post, "Funding", this.userInfo.uid)
+     }
 
-    }
 
+
+
+
+    
 
     componentDidMount() {
 
-
+        db.auth().onAuthStateChanged(async(user) => {
+            if (user) {
+                this.userInfo = user;
+            }    
+        })
     }
+
+ 
 
     render() {
 
@@ -65,6 +82,16 @@ class HomePage extends React.Component {
                 <input onChange={(text) => this.setState({ password : text.target.value })} placeholder="enter your password" />
 
                 <Button onClick={this.login}> Login </Button>
+
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <input onChange={(text) => this.setState({ post: text.target.value })} placeholder="write a post" />
+
+                <Button onClick={this.makePost}> Make post </Button>
+
+
 
 
              

@@ -1,15 +1,25 @@
 const { default: db } = require("../firebase")
+const { default: ProfileInfo } = require("./ProfileInfo")
 
 
 const PostsManager = {
 
-    writePost: async(message, uid) => {
+
+    getAllPosts: async() => {
+        return await db.firestore().collection('posts').get()
+    },
+
+    updatePost: async(pid, message, uid) => {
+
+    },
+
+    writePost: async(message, channel, uid) => {
 
         db.firestore().collection('posts').add({
             message: message,
-            uid
-
+            channel: channel,
         })
-        
     }
 }
+
+export default PostsManager;
