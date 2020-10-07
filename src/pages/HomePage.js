@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'reactstrap';
+import Posts from '../components/Posts';
 import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
 import PostsManager from '../networking/PostsManager';
@@ -15,7 +16,8 @@ class HomePage extends React.Component {
             email: '',
             displayName: '',
             post: '',
-            allUsers: []
+            allUsers: [],
+            allPosts: []
         }
     }
 
@@ -37,9 +39,6 @@ class HomePage extends React.Component {
 
 
 
-
-
-    
 
     componentDidMount() {
 
@@ -91,11 +90,7 @@ class HomePage extends React.Component {
 
                 <Button onClick={this.makePost}> Make post </Button>
 
-
-
-
-             
-             
+                <Posts posts={this.state.allPosts} />
 
             </div>
         )
