@@ -7,6 +7,7 @@ import PostsManager from '../networking/PostsManager';
 import ProfileInfo from '../networking/ProfileInfo';
 import firebase from 'firebase'
 import Directs from '../components/Directs';
+import LoadingScreen from '../components/LoadingScreen';
 
 
 class HomePage extends React.Component {
@@ -22,6 +23,7 @@ class HomePage extends React.Component {
             personalMessage: '',
             directMessage: '',
             allMessages: '', 
+            isLoading: true
         }
     }
 
@@ -55,35 +57,65 @@ class HomePage extends React.Component {
             }    
         })
 
-            const users = []
-             db.firestore().collection('users').get().then(snap => {
-                const data = snap.docs.map(doc => doc.data())
-                if (data) {
-                    this.setState({ allUsers : data })
-                }
-              });
+        const users = []
+        db.firestore().collection('users').get().then(snap => {
+            const data = snap.docs.map(doc => doc.data())
+            if (data) {
+                this.setState({ allUsers : data })
+                new Promise((resolve) =>
+                        setTimeout(
+                            () => { resolve('result') },
+                    2000)).then(event => {
+                        this.setState({ isLoading : false })
+                    })
+            }
+        });
     }
 
- 
-
     render() {
+        if (this.state.isLoading) {
+            return <LoadingScreen />
+        }
+      
 
         return (
-            <div className="container-fluid">
-                <br></br>
+            <div style={{background: 'linear-gradient(112.68deg, #F5F6F9 18.37%, #EFF0F4 50.92%, #E5E7ED 98.49%)'}}>
+sfsdf
+                <div 
+                style={{
+                    background: 'white',
+                    width: 260,
+                    height: '100%',
+                    top: 0,
+                    position: 'fixed',
+                    padding: 20,
+                    borderRadius: 27,
+                    boxShadow: '11px 4px 56px rgba(0, 0, 0, 0.05)'
+                }}>
+                    <img src={require('../assets/logo.svg')} />
 
-                <Directs allUsers={this.state.allUsers} userInfo={this.userInfo} />
+                    <br></br>
+                    <p> MENU </p>
+                    <p> MENU </p>
+                    <p> MENU </p>
+                    <p> MENU </p>
 
-            
-                <br></br>
-                <br></br>
-                <br></br>
+                   
 
-                <input onChange={(text) => this.setState({ post: text.target.value })} placeholder="write a post" />
+                    <img style={{position: 'absolute', bottom: 0, left: 0}} src={require('../assets/blob.svg')} />
+                </div>
 
-                <Button onClick={this.makePost}> Make post </Button>
-
-                <UncontrolledButtonDropdown>
+                <div style={{
+                    background: '#344BBF',
+                    position: 'absolute',
+                    width: 180,
+                    top: 20,
+                    marginLeft: 270,
+                    height: '100%',
+                    bottom: 60,
+                    borderRadius: 10,
+                }}>
+                      <UncontrolledButtonDropdown>
                     <DropdownToggle> { this.state.channels ? this.state.channels : "Channel: Channels"}  </DropdownToggle>
                     <DropdownMenu onClick={(val) => this.setState({ channels : val.target.value })}>
                         <DropdownItem value="Funding"> Funding </DropdownItem>
@@ -97,10 +129,66 @@ class HomePage extends React.Component {
                 </UncontrolledButtonDropdown>
 
 
-                
 
+                    {/* <p style={{fontWeight: 'bold', fontSize: 22}}> GENERAL CHATS </p> */}
+                </div>
+
+                <div 
+                style={{
+                    marginLeft: 470,
+                    padding: 20,
+                    top: 20,
+                    marginTop: 20,
+                    height: 600,
+                    overflowY: 'auto',
+                    background: 'rgba(255, 255, 255, 0.58)',
+                    borderRadius: 26, 
+                    width: 550,
+                    
+                }}>
+                    <br></br>
+                    <p style={{fontWeight: 'bold', fontSize: 22}}> General </p>
                 <Posts posts={this.state.allPosts} />
 
+                <input onChange={(text) => this.setState({ post: text.target.value })} placeholder="write a post" />
+
+                <Button onClick={this.makePost}> Make post </Button>
+
+
+                </div>
+
+                <div style={{
+                    background: 'rgba(255, 255, 255, 0.94)',
+                    position: 'absolute',
+                    boxShadow: '34px 53px 77px rgba(176, 183, 192, 0.4)',
+                    borderRadius: 28,
+                    top: 100,
+                    right: 40,
+                    width: 285,
+                    height: '80%',
+                }}>
+
+                    <p> GENERAL CHATS </p>
+                </div>
+
+
+
+            <div style={{paddingLeft: 500}} className="container-fluid">
+                <br></br>
+
+                {/* <Directs allUsers={this.state.allUsers} userInfo={this.userInfo} /> */}
+
+            
+                <br></br>
+                <br></br>
+                <br></br>
+
+            
+              
+                
+
+
+            </div>
             </div>
         )
     }

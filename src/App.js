@@ -6,6 +6,7 @@ import './styles/homePage.scss';
 import SignIn from './pages/SignIn';
 import db from './firebase';
 import Interests from './pages/Interests';
+import LoadingScreen from './components/LoadingScreen';
 
 
 
@@ -17,7 +18,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state={
-        logged: undefined
+        logged: undefined,
+        isLoading: true
     }
   }
 
@@ -26,6 +28,7 @@ class App extends React.Component {
      db.auth().onAuthStateChanged( async(user) => {
         if (user) {   
             this.setState({logged : true })
+            this.setState({ isLoading : false })
         } else {
             this.setState({logged : false })
         }
@@ -33,6 +36,10 @@ class App extends React.Component {
 }
 
   render() {
+    if (this.state.isLoading) {
+      return <LoadingScreen />
+  }
+
     return (
       
       <BrowserRouter basename={getBasename()}>

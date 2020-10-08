@@ -10,7 +10,7 @@ const Posts = ({...props}) =>  {
 
 
     useEffect(async() => {
-        const unsubscribe = db.firestore().collection('posts').orderBy("timestamp","desc").onSnapshot(snap => {
+        const unsubscribe = db.firestore().collection('posts').orderBy("timestamp","asc").onSnapshot(snap => {
             const data = snap.docs.map(doc => doc.data())
             if (data) {
                 updatePost(data)

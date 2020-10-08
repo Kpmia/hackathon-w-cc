@@ -7,6 +7,7 @@ import PostsManager from '../networking/PostsManager';
 import ProfileInfo from '../networking/ProfileInfo';
 import firebase from 'firebase'
 import InterestForm from '../components/InterestForm';
+import LoadingScreen from '../components/LoadingScreen';
 
 
 class Interests extends React.Component {
@@ -14,7 +15,8 @@ class Interests extends React.Component {
         super();
         this.allUsers= []
         this.state={
-            userInfo: []
+            userInfo: [],
+            isLoading: true
          
         }
     }
@@ -28,16 +30,21 @@ class Interests extends React.Component {
                 db.firestore().collection('users').doc(user.uid).get().then(res => {
                     console.log(res)
                     this.setState({ userInfo : res.data() })
+                    new Promise((resolve) =>
+                            setTimeout(
+                                () => { resolve('result') },
+                        2000)).then(event => {
+                            this.setState({ isLoading : false })
+                        })
                 })
             }
         })
     }
-
-
-     
     render() {
 
-        console.log(this.userInfo)
+       if (this.state.isLoading) {
+           return <LoadingScreen />
+       }
 
         return (
             <div className="container-fluid">
