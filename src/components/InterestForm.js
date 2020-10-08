@@ -1,5 +1,6 @@
 import { requirePropFactory } from '@material-ui/core';
 import React, { createElement, useState } from 'react';
+import FadeIn from 'react-fade-in';
 import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown, UncontrolledDropdown } from 'reactstrap';
 import db from '../firebase';
 
@@ -12,10 +13,21 @@ const chooseRole = (userRole) => {
     }
 }
 
+const stages = ["Pre-Seed", "Seed", "Series A", "Series B & C"]
+const industry = ["Technology", "Finance", "Entertainment", "Retail", "Agriculture", "Other"]
+const raise = ["$0k-$50k", "$250-$500k", "$500k-$1m+", "$1m-$3,", "$5m-$10m", "$10m+"]
+const cofounders = ["0-1", "2-4", "5+"]
+const student = ["high school", "associate's", "bachelor's", "master's", "phD"]
+
+
 const InterestForm = ({...props}) => {
     const [interests, updateInterest] = useState({})
-    console.log(interests)
+    const [interests1, updateInterest1] = useState('')
+    const [raise1, updateRaise] = useState('')
+    const [student1, updateStudent] = useState('')
+    const [cofounder, updateCofounder] = useState('')
     const [steps, addStep] = useState(0)
+    const [industries, updateIndustry] = useState('')
     const [form, getForm] = useState(true)
     const [specifcUser, chooseUser] = useState([])
     const [recommendations, addRecs] = useState([])
@@ -45,7 +57,7 @@ const InterestForm = ({...props}) => {
                         matches.push(user.data().interests[interest])
                     }
                 })
-                 count = count / 4 * 100
+                 count = count / 5 * 100
                  createProb[user.data().uid] = {prob: count, matches: matches, uid: user.data().uid} 
                  uid.push(createProb[user.data().uid])
                  uid.sort((a, b) => { return b.prob - a.prob })
@@ -110,74 +122,171 @@ const InterestForm = ({...props}) => {
     const showForm = () => {
         if (steps == 0) {
            return <div>
-               <p> {props.user.role == "owner" ? "Which stage is your business at?" : "Which stage are you looking for businesses in?" }  </p>
+               <br></br>
+               <br></br>
+               <br></br>
+               <p> {props.user.role == "owner" ?
+                <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                    Which stage is your business at? </p> : 
+                     <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                     Which stage are you looking for businesses in?
+                     </p>}
+                    </p>
+                    <Row style={{justifyContent: 'center'}}>
                 <UncontrolledButtonDropdown>
-                        <DropdownToggle> {interests["interests"]? interests["interests"] : null } </DropdownToggle>
-                        <DropdownMenu onClick={(val) => updateInterests("interests", val.target.value)}>
-                            <DropdownItem value="Funding"> Funding </DropdownItem>
-                            <DropdownItem value="Mentors"> Mentors </DropdownItem>
-                            <DropdownItem value="Events"> Events </DropdownItem>
-                            <DropdownItem value="Off-Topic"> Off-Topic </DropdownItem>
-                            <DropdownItem value="General"> General </DropdownItem>
+                        <DropdownToggle> {interests1? interests1 : "Stages" } </DropdownToggle>
+                        <DropdownMenu onClick={(val) => { updateInterests("stage", val.target.value); updateInterest1( val.target.value) }}>
+                            {
+                                stages.map(stage => {
+                                    return (
+                                        <DropdownItem value={stage}> {stage}</DropdownItem>
+                                    )
+                                })
+                            }
                         </DropdownMenu>
                 </UncontrolledButtonDropdown>
-                <br></br>
+                </Row>
                 <br></br>
 
-                <Button onClick={() => addSteps() }> Next </Button>
+                <Row style={{justifyContent: 'center'}}>
+                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}}  onClick={() => addSteps() }> Next </Button>
+                </Row>
             </div>
         }
         if (steps == 1) {
             return <div>
+                <br></br>
+               <br></br>
+               <br></br>
+                 <p> {props.user.role == "owner" ?
+                <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                    Which industry is your business in? 
+
+                    </p> : 
+                     <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                     Which industry are you interested in?
+
+                     </p>}
+                    </p>
+                    <Row style={{justifyContent: 'center'}}>
                  <UncontrolledButtonDropdown>
-                         <DropdownToggle>   </DropdownToggle>
-                         <DropdownMenu onClick={(val) => updateInterests("funding", val.target.value)}>
-                             <DropdownItem value="100k"> 100k </DropdownItem>
-                             <DropdownItem value="1m"> 1m </DropdownItem>
-                             <DropdownItem value="1.5m"> 1.5m </DropdownItem>
-                             <DropdownItem value="200k"> 200k </DropdownItem>
-                             <DropdownItem value="3m+"> 3m+ </DropdownItem>
+                         <DropdownToggle>  {industries? industries : "Industry" } </DropdownToggle>
+                         <DropdownMenu onClick={(val) => { updateInterests("industry", val.target.value) ; updateIndustry(val.target.value)}}>
+                         {
+                                industry.map(stage => {
+                                    return (
+                                        <DropdownItem value={stage}> {stage}</DropdownItem>
+                                    )
+                                })
+                            }
                          </DropdownMenu>
                  </UncontrolledButtonDropdown>
-                 <br></br>
+                 </Row>
                  <br></br>
  
-                 <Button onClick={() => addSteps() }> Next </Button>
-             </div>
+                 <Row style={{justifyContent: 'center'}}>
+                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}}  onClick={() => addSteps() }> Next </Button>
+                </Row>             </div>
          }
          if (steps == 2) {
             return <div>
+                <br></br>
+               <br></br>
+               <br></br>
+                  <p> {props.user.role == "owner" ?
+                <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                    How much are you looking to raise?
+                    </p> : 
+                     <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                    How much can you/your firm fund?
+                     </p>}
+                    </p>
+                    <Row style={{justifyContent: 'center'}}>
             <UncontrolledButtonDropdown>
-                    <DropdownToggle>   </DropdownToggle>
-                    <DropdownMenu onClick={(val) => updateInterests("stages", val.target.value)}>
-                        <DropdownItem value="Pre-Seed "> Pre-Seed </DropdownItem>
-                        <DropdownItem value="Seed"> Seed </DropdownItem>
-                        <DropdownItem value="Series A"> Series A </DropdownItem>
-                        <DropdownItem value="Series B"> Series B </DropdownItem>
-                        <DropdownItem value="Series C+"> Series C </DropdownItem>
+                    <DropdownToggle> { raise1 ? raise1 : "Raise"}   </DropdownToggle>
+                    <DropdownMenu onClick={(val) => { updateInterests("funding", val.target.value); updateRaise( val.target.value)}}>
+                    {
+                                raise.map(stage => {
+                                    return (
+                                        <DropdownItem value={stage}> {stage}</DropdownItem>
+                                    )
+                                })
+                            }
                     </DropdownMenu>
             </UncontrolledButtonDropdown>
-            <br></br>
+            </Row>
             <br></br>
 
-            <Button onClick={() => addSteps() }> Next </Button>
-        </div>
+            <Row style={{justifyContent: 'center'}}>
+                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}}  onClick={() => addSteps() }> Next </Button>
+                </Row>        </div>
          }
          if (steps == 3) {
             return <div>
+                <br></br>
+               <br></br>
+               <br></br>
+                 <p> {props.user.role == "owner" ?
+                <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                    How many co-founders do you have in your team? 
+                    </p> : 
+                     <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                    How many co-founders would you like to work with in a single team?
+                     </p>}
+                    </p>
+                    <Row style={{justifyContent: 'center'}}>
                  <UncontrolledButtonDropdown>
-                    <DropdownToggle>   </DropdownToggle>
-                    <DropdownMenu onClick={(val) => updateInterests("route", val.target.value)}>
-                        <DropdownItem value="Customer Discover"> Customer Discovery</DropdownItem>
-                        <DropdownItem value="MVP "> MVP </DropdownItem>
-                        <DropdownItem value="Pilots"> Built Product; Pilots </DropdownItem>
-                        <DropdownItem value="Customers"> Trending Product; Customers </DropdownItem>
+                    <DropdownToggle>  {cofounder ? cofounder : "Size"}  </DropdownToggle>
+                    <DropdownMenu onClick={(val) => { updateInterests("teamsize", val.target.value); updateCofounder(val.target.value)}}>
+                    {
+                                cofounders.map(stage => {
+                                    return (
+                                        <DropdownItem value={stage}> {stage}</DropdownItem>
+                                    )
+                                })
+                            }
                     </DropdownMenu>
             </UncontrolledButtonDropdown>
-            <br></br>
+            </Row>
             <br></br>
 
-            <Button onClick={() => finishForm() }> Finish </Button>
+            <Row style={{justifyContent: 'center'}}>
+            <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}}  onClick={() => addSteps() }> Next </Button>
+                </Row>
+             </div>
+         }
+         console.log(steps)
+         if (steps == 4) {
+            return <div>
+                <br></br>
+               <br></br>
+               <br></br>
+                 <p> {props.user.role == "owner" ?
+                <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                    What level of degree are you seeking?                    </p> : 
+                     <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
+                   What level of degree do you prefer to work with?
+                     </p>}
+                    </p>
+                    <Row style={{justifyContent: 'center'}}>
+                 <UncontrolledButtonDropdown>
+                    <DropdownToggle> {student1 ? student1 : "Degree"}  </DropdownToggle>
+                    <DropdownMenu onClick={(val) => { updateInterests("student", val.target.value); updateStudent(val.target.value)}}>
+                    {
+                                student.map(stage => {
+                                    return (
+                                        <DropdownItem value={stage}> {stage}</DropdownItem>
+                                    )
+                                })
+                            }
+                    </DropdownMenu>
+            </UncontrolledButtonDropdown>
+            </Row>
+            <br></br>
+
+            <Row style={{justifyContent: 'center'}}>
+                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}}  onClick={() => finishForm() }> Create My Matches </Button>
+                </Row>
              </div>
          }
         
@@ -195,6 +304,7 @@ const InterestForm = ({...props}) => {
     return (
         <div>
 
+
             {recommendations[index] ? 
                                     <p style={{position: 'absolute', color: '#4B4D5B'}} className="float-right">{recommendations[index].prob}% Match </p>
 : null }
@@ -202,13 +312,15 @@ const InterestForm = ({...props}) => {
             
 
             {form ? showForm() : <div>
+
+                <FadeIn>
                 <Row style={{justifyContent: 'center'}}>
                 <img src={require('../assets/matcheduser.svg')} />
                 </Row>
                <p style={{color: '#4B4D5B', textAlign: 'center', fontSize: 22, fontWeight: 600, marginBottom: 8}}> {specifcUser.displayName}</p>
                 <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 17, fontWeight: 300, marginBottom: 2}}>  {specifcUser.role} @ {specifcUser.companyName}</p>
 
-                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}> About </p>
+                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> About </p>
                 <Row>
                 {Object.values(specifcUser.interests).map(interest => {
 
@@ -236,7 +348,7 @@ const InterestForm = ({...props}) => {
 
                     <div >
 
-            <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}> Your Matches </p>
+            <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> Your Matches </p>
                         <Row>
 
                          {recommendations[index].matches.map(match => {
@@ -256,7 +368,7 @@ const InterestForm = ({...props}) => {
                     </div>
                     :
 
-                    <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}>
+                    <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}>
                         No more users left. Restarting the round.
                     </p>
                     
@@ -275,7 +387,7 @@ const InterestForm = ({...props}) => {
                </Col>
                  </Row>
 
-
+                 </FadeIn>
                 </div>
                 }
 
