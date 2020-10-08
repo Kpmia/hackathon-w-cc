@@ -5,7 +5,7 @@ const ProfileInfo = {
 
 
     getAllUsers: async() => {
-        return (await db.firestore().collection('users').get()).docs
+        return db.firestore().collection('users').onSnapshot
     },
 
     getSpecificUserInfo: async(uid) => {

@@ -5,39 +5,45 @@ import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
 import PostsManager from '../networking/PostsManager';
 import ProfileInfo from '../networking/ProfileInfo';
+import firebase from 'firebase'
+import Directs from '../components/Directs';
 
 
 class HomePage extends React.Component {
     constructor() {
         super();
         this.userInfo = []
+        this.allUsers= []
         this.state={
-            password: '',
-            email: '',
             displayName: '',
             post: '',
             allUsers: [],
             channels: '',
-            allPosts: []
+            personalMessage: '',
+            directMessage: '',
+            allMessages: '', 
         }
     }
 
-    signUp = () => {
-        AuthManager.signUp(this.state.email, this.state.password, this.state.displayName)
-    }
+ 
 
-    login = () => {
-        if (this.state.email == '' || this.state.password == '') {
-            return alert('One of the fields is empty');
-        } else {
-            AuthManager.loginFlow(this.state.email, this.state.password)
-        }   
-     }
 
      makePost = () => {
         PostsManager.writePost(this.state.post, this.state.channels, this.userInfo)
      }
 
+     findConversation = () => {
+         db.firestore().collection('conversations').doc(this.userInfo.uid + this.state.targ).get()
+     }
+
+     messageUser = () => {
+        db.firestore().collection('conversations').doc(this.userInfo.uid + this.state.directMessage).collection('chatone').add({
+            message: this.state.personalMessage,
+            uid: this.userInfo.uid,
+            displayName: this.userInfo.displayName,
+            timestamp: firebase.firestore.Timestamp.fromDate(new Date())
+        })     
+     }
 
 
 
@@ -48,6 +54,14 @@ class HomePage extends React.Component {
                 this.userInfo = user;
             }    
         })
+
+            const users = []
+             db.firestore().collection('users').get().then(snap => {
+                const data = snap.docs.map(doc => doc.data())
+                if (data) {
+                    this.setState({ allUsers : data })
+                }
+              });
     }
 
  
@@ -58,31 +72,9 @@ class HomePage extends React.Component {
             <div className="container-fluid">
                 <br></br>
 
-                <p> Successful Project </p>
+                <Directs allUsers={this.state.allUsers} userInfo={this.userInfo} />
 
-                username 
-                <input onChange={(text) => this.setState({ email : text.target.value })} placeholder="enter your username" />
-
-                password
-                <input onChange={(text) => this.setState({ password : text.target.value })} placeholder="enter your password" />
-
-
-                displayName
-                <input onChange={(text) => this.setState({ displayName: text.target.value })} placeholder="enter your dsiplayName" />
-
-                <Button onClick={this.signUp}> Sign Up </Button>
-
-                <br></br>
-
-
-                username 
-                <input onChange={(text) => this.setState({ email : text.target.value })} placeholder="enter your username" />
-
-                password
-                <input onChange={(text) => this.setState({ password : text.target.value })} placeholder="enter your password" />
-
-                <Button onClick={this.login}> Login </Button>
-
+            
                 <br></br>
                 <br></br>
                 <br></br>
@@ -103,6 +95,9 @@ class HomePage extends React.Component {
 
 
                 </UncontrolledButtonDropdown>
+
+
+                
 
                 <Posts posts={this.state.allPosts} />
 

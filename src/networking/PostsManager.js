@@ -16,6 +16,14 @@ const PostsManager = {
 
     },
 
+    startDirectMessage: async(uid, displayName, directUid, message) => {
+        db.firestore().collection('conversations').add(uid + directUid).add({
+            message: message,
+            displayName: displayName,
+            timestamp: firebase.firestore.Timestamp.fromDate(new Date())
+        })
+    },
+
     writePost: async(message, channel, userInfo) => {
         db.firestore().collection('posts').add({
             message: message,
@@ -23,7 +31,6 @@ const PostsManager = {
             uid: userInfo.uid,
             displayName: userInfo.displayName,
             timestamp: firebase.firestore.Timestamp.fromDate(new Date())
-
         })
     }
 }

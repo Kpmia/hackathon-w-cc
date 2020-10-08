@@ -5,24 +5,31 @@ const AuthManager = {
 
     loginFlow: async(email, password) => {
         try {
-            await db.auth().signInWithEmailAndPassword(email, password)
-            return window.location.href = '/';
+            await db.auth().signInWithEmailAndPassword(email, password).then(event => {
+                if (event) {
+                    window.location.href = '/'
+                }
+            })
         } catch (err) {
             return alert(err)
         }
     },
 
-    signUp: async(email, password, displayName) => {
+    signUp: async(email, password, displayName, role) => {
         try {
             await db.auth().createUserWithEmailAndPassword(email, password).then(result => {
+                db.firestore().collection('users').doc(result.user.uid).set({
+                    email: email,
+                    uid: result.user.uid,
+                    displayName: displayName,
+                    role: role
+                })
                 result.user.updateProfile({
                     displayName: displayName
+                }).then(event => {
+                    window.location.href = '/interests'
                 })
-                db.firestore().collection('users').add({
-                    email: email,
-                    displayName: displayName,
-                    role: 'investor'
-                })
+              
             })
         } catch (err) {
             return alert(err);
