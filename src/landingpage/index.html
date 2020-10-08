@@ -25,7 +25,21 @@
       </div>
 
       <div id="maincontainer">
-      <h1>Ideas come to life. 💡</h1>
+      <div id="heading">Ideas come to life. 💡
+        <script>
+          var titleTranslations = ["Connect. 😊","Empower. 💗","Make change. 🌎","Powerpose. 👏"];
+          var counter = 0;
+          var elem = document.getElementById("heading");
+          var inst = setInterval(change, 5000);
+          function change() {
+            elem.innerHTML = titleTranslations[counter];
+            counter++;
+            if (counter >= titleTranslations.length) {
+              counter = 0;
+            }
+          }
+        </script>
+      </div>
       <div id="featimgcontainer">
       <p style="font-size:18px;">
         <i>Creating opportunity & access for women/non-binary in startups.</i><br><br>

@@ -114,6 +114,15 @@ padding-right:5px;
 text-decoration:none;
 }
 
+#heading{
+  text-decoration:none;
+  color:#8E7DBE;
+    font-family: 'DM Sans', sans-serif;
+    font-size:70px;
+    font-weight:bold;
+    padding:60px;
+}
+
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
