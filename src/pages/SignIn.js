@@ -72,12 +72,12 @@ class SignIn extends React.Component {
                     <Col>
 
                 
-                <UncontrolledButtonDropdown style={{marginTop: 10}}>
-                    <DropdownToggle> Choose a Role</DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem> investor </DropdownItem>
-                        <DropdownItem> owner </DropdownItem>
-                        <DropdownItem> mentor </DropdownItem>
+                <UncontrolledButtonDropdown style={{marginTop: 10, background: 'none', outline: 'none'}}>
+                    <DropdownToggle> {this.state.role? this.state.role : "Choose a role" }</DropdownToggle>
+                    <DropdownMenu onClick={(value) => this.setState({ role : value.target.value })}>
+                        <DropdownItem value="investor"> investor </DropdownItem>
+                        <DropdownItem value="owner"> owner </DropdownItem>
+                        <DropdownItem value="mentor"> mentor </DropdownItem>
 
                     </DropdownMenu>
                 </UncontrolledButtonDropdown>
@@ -102,7 +102,7 @@ class SignIn extends React.Component {
                 </Row>
                 <br></br>
                 <Row style={{justifyContent: 'center'}}>
-                <Button style={{ fontSize: 14, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 3, color: '#B4B4B4'}} onClick={this.signUp}> Sign Up </Button>
+                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 3, color: '#B4B4B4'}} onClick={this.signUp}> Sign Up </Button>
                 </Row>
 
                 <br></br>
