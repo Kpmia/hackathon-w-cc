@@ -21,7 +21,8 @@ class SignIn extends React.Component {
             website: '',
             linkedin: '',
             company: '',
-            role: '' 
+            role: '' ,
+            login: true
         }
     }
 
@@ -56,14 +57,43 @@ class SignIn extends React.Component {
                     <Row style={{justifyContent: 'center'}}>
                         <img width={40} src={require('../assets/login.svg')} />
                      </Row>
+
+
+                     {
+                         this.state.login? 
+
+                         <div>
+                             <br></br>
+                             <br></br>
+                             <br></br>
+
+                               Email
+                            <Input style={{marginBottom: 7}} onChange={(text) => this.setState({ email : text.target.value })} placeholder="" />
+
+                        Password
+                        <Input type="password" onChange={(text) => this.setState({ password : text.target.value })} placeholder="" />
+
+                <br></br>
+                <br></br>
+                <Row style={{justifyContent: 'center'}}>
+                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}} onClick={this.login}> Login </Button>
+                </Row>
+
+                         </div>
+                     
+
+
+                         :
+
+                         <div>
                 
 
 
                 Email
-                <Input onChange={(text) => this.setState({ email : text.target.value })} placeholder="" />
+                <Input style={{marginBottom: 7}} onChange={(text) => this.setState({ email : text.target.value })} placeholder="" />
 
                 Password
-                <Input type="password" onChange={(text) => this.setState({ password : text.target.value })} placeholder="" />
+                <Input style={{marginBottom: 7}} type="password" onChange={(text) => this.setState({ password : text.target.value })} placeholder="" />
 
                 Full Name
                 <Input onChange={(text) => this.setState({ displayName: text.target.value })} placeholder="" />
@@ -85,7 +115,7 @@ class SignIn extends React.Component {
                 </Col>
                 <Col>
                 Company Name
-                <Input onChange={(text) => this.setState({ company : text.target.value })} placeholder="" />
+                <Input style={{marginTop: 7}} onChange={(text) => this.setState({ company : text.target.value })} placeholder="" />
                 </Col>
 
                 </Row>
@@ -93,21 +123,23 @@ class SignIn extends React.Component {
                 <Row>
                     <Col>
                 Linkedin Link
-                <Input onChange={(text) => this.setState({ linkedin : text.target.value })} placeholder="" />
+                <Input style={{marginBottom: 7}} onChange={(text) => this.setState({ linkedin : text.target.value })} placeholder="" />
                 </Col>
                 <Col>
                 Website
-                <Input onChange={(text) => this.setState({ website : text.target.value })} placeholder="enter your site" />
+                <Input style={{marginBottom: 7}} onChange={(text) => this.setState({ website : text.target.value })} placeholder="enter your site" />
                 </Col>
                 </Row>
                 <br></br>
                 <Row style={{justifyContent: 'center'}}>
-                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 3, color: '#B4B4B4'}} onClick={this.signUp}> Sign Up </Button>
+                <Button className="btn-block" style={{ fontSize: 14, width: 200, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}} onClick={this.signUp}> Sign Up </Button>
                 </Row>
+                     </div> }
 
                 <br></br>
-
-                <Switch color="primary" />
+                <Row style={{justifyContent: 'center'}}>
+                <Switch onChange={() => this.setState({ login : !this.state.login })}  color="primary" />
+                </Row>
 
 
                 {/* username 
@@ -121,6 +153,7 @@ class SignIn extends React.Component {
                 <br></br>
                 <br></br>
                 <br></br>
+                
                 </CardBody>
 
             </Card>
