@@ -1,11 +1,12 @@
 import React from 'react'
-import { Button, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, DropdownItem } from 'reactstrap';
+import { Button, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, DropdownItem, CardBody, Input, Row, Col } from 'reactstrap';
 import Posts from '../components/Posts';
 import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
 import PostsManager from '../networking/PostsManager';
 import ProfileInfo from '../networking/ProfileInfo';
 import firebase from 'firebase'
+import { Card, Switch } from '@material-ui/core';
 
 
 class SignIn extends React.Component {
@@ -41,49 +42,93 @@ class SignIn extends React.Component {
     render() {
 
         return (
-            <div className="container-fluid">
+            <div className="authBody" style={{background: 'linear-gradient(181.17deg, #8E9DE8 -156.12%, #FFFFFF 74.97%)'}}>  
+            <br></br>          
+    
+            <div className="signInBody">
+    
                 <br></br>
 
                
-                username 
-                <input onChange={(text) => this.setState({ email : text.target.value })} placeholder="enter your username" />
+                <Card style={{height: 500, width: 400,  borderRadius: 15, border: 'none', boxShadow: 'rgba(0, 0, 0, 0.08) 0px 8px 16px 0px'}}>
+                    <CardBody style={{padding: 50}}>
 
-                password
-                <input onChange={(text) => this.setState({ password : text.target.value })} placeholder="enter your password" />
+                    <Row style={{justifyContent: 'center'}}>
+                        <img width={40} src={require('../assets/login.svg')} />
+                     </Row>
+                
 
 
-                displayName
-                <input onChange={(text) => this.setState({ displayName: text.target.value })} placeholder="enter your dsiplayName" />
+                Email
+                <Input onChange={(text) => this.setState({ email : text.target.value })} placeholder="" />
 
-                Role
-                <input onChange={(text) => this.setState({ role : text.target.value })} placeholder="enter your role" />
+                Password
+                <Input type="password" onChange={(text) => this.setState({ password : text.target.value })} placeholder="" />
 
-                Linkedin
-                <input onChange={(text) => this.setState({ linkedin : text.target.value })} placeholder="enter your Linkedin" />
+                Full Name
+                <Input onChange={(text) => this.setState({ displayName: text.target.value })} placeholder="" />
 
+                <Row>
+                    <Col>
+
+                
+                <UncontrolledButtonDropdown style={{marginTop: 10}}>
+                    <DropdownToggle> Choose a Role</DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem> investor </DropdownItem>
+                        <DropdownItem> owner </DropdownItem>
+                        <DropdownItem> mentor </DropdownItem>
+
+                    </DropdownMenu>
+                </UncontrolledButtonDropdown>
+
+                </Col>
+                <Col>
+                Company Name
+                <Input onChange={(text) => this.setState({ company : text.target.value })} placeholder="" />
+                </Col>
+
+                </Row>
+
+                <Row>
+                    <Col>
+                Linkedin Link
+                <Input onChange={(text) => this.setState({ linkedin : text.target.value })} placeholder="" />
+                </Col>
+                <Col>
                 Website
-                <input onChange={(text) => this.setState({ website : text.target.value })} placeholder="enter your site" />
-
-                Company
-                <input onChange={(text) => this.setState({ company : text.target.value })} placeholder="enter your company" />
-
-                <Button onClick={this.signUp}> Sign Up </Button>
+                <Input onChange={(text) => this.setState({ website : text.target.value })} placeholder="enter your site" />
+                </Col>
+                </Row>
+                <br></br>
+                <Row style={{justifyContent: 'center'}}>
+                <Button style={{ fontSize: 14, fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 3, color: '#B4B4B4'}} onClick={this.signUp}> Sign Up </Button>
+                </Row>
 
                 <br></br>
 
+                <Switch color="primary" />
 
-                username 
+
+                {/* username 
                 <input onChange={(text) => this.setState({ email : text.target.value })} placeholder="enter your username" />
 
                 password
                 <input onChange={(text) => this.setState({ password : text.target.value })} placeholder="enter your password" />
 
-                <Button onClick={this.login}> Login </Button>
+                <Button onClick={this.login}> Login </Button> */}
 
                 <br></br>
                 <br></br>
                 <br></br>
+                </CardBody>
 
+            </Card>
+
+
+                </div>
+
+             
 
             </div>
         )

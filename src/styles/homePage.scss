@@ -9,3 +9,23 @@
 @import '~@coreui/coreui/scss/_dropdown-menu-right.scss';
 @import '~@coreui/coreui/dist/css/coreui.min.css';
 
+
+
+.authBody {
+    width: 100%;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.signInBody {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}

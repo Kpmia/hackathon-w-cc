@@ -19,8 +19,8 @@ class App extends React.Component {
     super();
     this.state={
         logged: undefined,
-        isLoading: true
-    }
+        logged: undefined
+      }
   }
 
 
@@ -28,28 +28,24 @@ class App extends React.Component {
      db.auth().onAuthStateChanged( async(user) => {
         if (user) {   
             this.setState({logged : true })
-            this.setState({ isLoading : false })
-        } else {
+          } else {
             this.setState({logged : false })
         }
     })
 }
 
   render() {
-    if (this.state.isLoading) {
-      return <LoadingScreen />
-  }
-
-    return (
-      
-      <BrowserRouter basename={getBasename()}>
-          <Switch>
-            <Route exact path='/' component={this.state.logged ? HomePage : SignIn } />
-            <Route exact path='/login'  component={SignIn}/>
-            <Route exact path='/interests'  component={this.state.logged ? Interests : SignIn } />
-        </Switch>
-      </BrowserRouter>
+      return (
+        
+        <BrowserRouter basename={getBasename()}>
+            <Switch>
+              <Route exact path='/' component={this.state.logged ? HomePage : SignIn } />
+              <Route exact path='/login'  component={SignIn}/>
+              <Route exact path='/interests'  component={this.state.logged ? Interests : SignIn } />
+          </Switch>
+        </BrowserRouter>
     );
+      
   }
 }
 
