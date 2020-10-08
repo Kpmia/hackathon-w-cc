@@ -70,7 +70,6 @@ const InterestForm = ({...props}) => {
         })
     }
 
-    console.log(recommendations)
 
     const generateProfiles = (recs) => {
         if (recommendations[index] == undefined) {
@@ -98,17 +97,20 @@ const InterestForm = ({...props}) => {
 
 
     const addToPortfolio = () => {
-        var portfolio = []
-        db.firestore().collection('users').doc(props.user.role).get().then(profile => {
+        db.firestore().collection('users').doc(props.user.uid).get().then(profile => {
+            var portfolio = []
             portfolio = profile.data()
-            console.log(portfolio["saved"])
-            // portfolio["saved"] = []
-            // portfolio["saved"].push(specifcUser)
-         
-
-            // db.firestore().collection('users').doc(props.user.role).set({
-
-            // })
+            console.log(portfolio)
+            if (portfolio["saved"] == undefined) {
+                portfolio["saved"] = []
+                specifcUser["prob"] = recommendations[index].prob
+                portfolio["saved"].push(specifcUser)
+                db.firestore().collection('users').doc(props.user.uid).set(portfolio)
+            } else {
+                specifcUser["prob"] = recommendations[index].prob
+                portfolio["saved"].push(specifcUser)
+                db.firestore().collection('users').doc(props.user.uid).set(portfolio) 
+            }
         })
     }
 
