@@ -1,0 +1,98 @@
+import React from 'react';
+class LandingPage extends React.Component {
+    constructor() {
+    super();
+    }
+    componentDidMount() {
+     }
+    render(){
+    return (
+
+        <html lang="en">
+            <meta charset="utf-8" />
+            <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="theme-color" content="#000000" />
+            <meta name="description" content="Web site created using create-react-app"/>
+            <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+            <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+            <link rel="stylesheet" href="style.css" />
+            <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+        
+        
+            <title>Powerpose | Connect, empower, make change.</title>
+            <div id="root">
+        
+              <div id="nav">
+                <h1>Powerpose</h1>
+                <a href="index.html">Home</a>
+                <a href="connect.html">Connect</a>
+                <a href="/#/login">Login</a>
+              </div>
+        
+              <div id="maincontainer">
+              <div id="heading">Ideas come to life. 💡
+                
+                
+                  var titleTranslations = ["Connect. 😊","Empower. 💗","Make change. 🌎","Powerpose. 👏"];
+                  var counter = 0;
+                  var elem = document.getElementById("heading");
+                  var inst = setInterval(change, 5000);
+                  function change() {
+                    elem.innerHTML = titleTranslations[counter];
+                    counter++;
+                    if (counter >= titleTranslations.length) {
+                      counter = 0;
+                    }
+                  }
+                
+              </div>
+              <div id="featimgcontainer">
+              <p style="font-size:18px;">
+                <i>Creating opportunity & access for women/non-binary in startups.</i><br><br>
+                We're here to bridge the gender gap in startup funding and equity, one connection at a time. ✨
+              </p>
+              <img src="images/girl.png" style="display:inline-block;margin-bottom:-100px;z-index:50;width:270px;">
+            </div>
+            </div>
+        
+            <div id="nextcontainer">
+              <h2>Why? 👇</h2>
+              <img src="images/stat.png" style="display:inline-block;margin-bottom:-90px;width:550px;">
+              <div id="ninsidecontainer">
+                <p style="font-size:19px;">In the male-dominated world of startups, many female founders and entrepreneurs think the same question: “But what if I’m not taken seriously by investors?”<br><br>
+                  This question is not uncommon for a reason. In 2018, only 3% of venture capital in the U.S. went towards companies led by a female CEO. No wonder 55% of women second-guess their decision to start a business. 
+                    <br><br>
+                    Talented, driven women across the world face the same dilemma of doubting their abilities to successfully lead and pitch their ideas due to inherent bias in the VC industry. <br><br>
+                  </p>
+            </div></div>
+        
+            <div id="maincontainer">
+              <h2>Our mission 👩‍💼</h2>
+              <div id="featimgcontainer">
+              <img src="images/BqAaC2QQEYuFdUHrsPIh.png"style="display:inline-block;z-index:50;width:480px;">
+              <p style="font-size:18px;">Being in a male-dominated industry is intimidating, but it doesn't have to be. 
+                <br><br>We break down the barriers between changemakers and investors through a special matchmaking algorithm and access to an incredible community of fellow female entrepreneurs and mentors.
+        
+              <br><br>
+              It’s time we start investing in female start-ups, or in other words, a better future.      
+              </p>
+            </div>
+            <br><br><br><br><br><br><br><br>
+            </div>
+        
+            <div id="footer">
+              Created by <a href="http://linkedin.com/in/shirlingxu/">Shirling</a> + <a href="https://www.linkedin.com/in/kimiakavanroodi1/">Kamia</a> with 💛.
+            </div>
+        
+          </div>
+        
+        </html>
+        
+
+
+
+
+    )}
+}
+export default LandingPage;

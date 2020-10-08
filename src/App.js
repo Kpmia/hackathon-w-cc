@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import db from './firebase';
 import Interests from './pages/Interests';
 import LoadingScreen from './components/LoadingScreen';
+import LandingPage from './pages/LandingPage';
 
 
 
@@ -39,6 +40,7 @@ class App extends React.Component {
         
         <BrowserRouter basename={getBasename()}>
             <Switch>
+              <Route exact path='/landing'  component={LandingPage}/>
               <Route exact path='/' component={this.state.logged ? HomePage : SignIn } />
               <Route exact path='/login'  component={SignIn}/>
               <Route exact path='/interests'  component={this.state.logged ? Interests : SignIn } />
