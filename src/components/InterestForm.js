@@ -1,7 +1,7 @@
 import { requirePropFactory } from '@material-ui/core';
 import React, { createElement, useState } from 'react';
 import FadeIn from 'react-fade-in';
-import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, Toast, UncontrolledButtonDropdown, UncontrolledDropdown } from 'reactstrap';
+import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, Table, Toast, UncontrolledButtonDropdown, UncontrolledDropdown } from 'reactstrap';
 import db from '../firebase';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 
@@ -140,7 +140,7 @@ const InterestForm = ({...props}) => {
                     <Row style={{justifyContent: 'center'}}>
                 <UncontrolledButtonDropdown>
                         <DropdownToggle> {interests1? interests1 : "Stages" } </DropdownToggle>
-                        <DropdownMenu onClick={(val) => { updateInterests("stage", val.target.value); updateInterest1( val.target.value) }}>
+                        <DropdownMenu style={{height: 100, overflowY: 'scroll'}} onClick={(val) => { updateInterests("stage", val.target.value); updateInterest1( val.target.value) }}>
                             {
                                 stages.map(stage => {
                                     return (
@@ -175,7 +175,7 @@ const InterestForm = ({...props}) => {
                     <Row style={{justifyContent: 'center'}}>
                  <UncontrolledButtonDropdown>
                          <DropdownToggle>  {industries? industries : "Industry" } </DropdownToggle>
-                         <DropdownMenu onClick={(val) => { updateInterests("industry", val.target.value) ; updateIndustry(val.target.value)}}>
+                         <DropdownMenu  style={{height: 100, overflowY: 'scroll'}} onClick={(val) => { updateInterests("industry", val.target.value) ; updateIndustry(val.target.value)}}>
                          {
                                 industry.map(stage => {
                                     return (
@@ -207,7 +207,7 @@ const InterestForm = ({...props}) => {
                     <Row style={{justifyContent: 'center'}}>
             <UncontrolledButtonDropdown>
                     <DropdownToggle> { raise1 ? raise1 : "Raise"}   </DropdownToggle>
-                    <DropdownMenu onClick={(val) => { updateInterests("funding", val.target.value); updateRaise( val.target.value)}}>
+                    <DropdownMenu  style={{height: 100, overflowY: 'scroll'}} onClick={(val) => { updateInterests("funding", val.target.value); updateRaise( val.target.value)}}>
                     {
                                 raise.map(stage => {
                                     return (
@@ -239,7 +239,7 @@ const InterestForm = ({...props}) => {
                     <Row style={{justifyContent: 'center'}}>
                  <UncontrolledButtonDropdown>
                     <DropdownToggle>  {cofounder ? cofounder : "Size"}  </DropdownToggle>
-                    <DropdownMenu onClick={(val) => { updateInterests("teamsize", val.target.value); updateCofounder(val.target.value)}}>
+                    <DropdownMenu  style={{height: 100, overflowY: 'scroll'}} onClick={(val) => { updateInterests("teamsize", val.target.value); updateCofounder(val.target.value)}}>
                     {
                                 cofounders.map(stage => {
                                     return (
@@ -272,7 +272,7 @@ const InterestForm = ({...props}) => {
                     <Row style={{justifyContent: 'center'}}>
                  <UncontrolledButtonDropdown>
                     <DropdownToggle> {student1 ? student1 : "Degree"}  </DropdownToggle>
-                    <DropdownMenu onClick={(val) => { updateInterests("student", val.target.value); updateStudent(val.target.value)}}>
+                    <DropdownMenu  style={{height: 100, overflowY: 'scroll'}} onClick={(val) => { updateInterests("student", val.target.value); updateStudent(val.target.value)}}>
                     {
                                 student.map(stage => {
                                     return (
@@ -323,40 +323,37 @@ const InterestForm = ({...props}) => {
 
                 <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> About </p>
                 <Row>
-                {Object.values(specifcUser.interests).map(interest => {
+                <Table>
+                    <tbody>
+                {Object.keys(specifcUser.interests).map(interest => {
+
+                    var interestName = interest[0].toUpperCase() + interest.substring(1, interest.length)
+                    var value = specifcUser.interests[interest][0].toUpperCase() + specifcUser.interests[interest].substring(1, specifcUser.interests[interest].length)
 
                     return (
-                        <Col>
-                        <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>{interest}</p>
-                        </Col>
+                        <tr>
+                            <th> {interestName} </th>
+                            <th> {value}</th>
+                        </tr>
                     )
                 })}
+                </tbody>
+                </Table>
                 </Row>
-                <br></br>
-
-
-                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300, marginBottom: 0}}>
-                Website: {specifcUser.website}  </p>
-                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}>
-               Linkedin: {specifcUser.linkedin} 
-                </p>
-
-
-               
-
                 {
                     recommendations[index] ? 
 
                     <div >
 
-            <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> Your Matches </p>
+            <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> Your Preferance </p>
                         <Row>
 
                          {recommendations[index].matches.map(match => {
+                             var beginning = match[0].toUpperCase() + match.substring(1, match.length)
                     return (
                         <div>
                         <Col>
-                        <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>{match}</p>
+                        <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>{beginning}</p>
                             </Col>
                          </div>
                          
@@ -374,6 +371,18 @@ const InterestForm = ({...props}) => {
                     </p>
                     
                 }
+
+
+                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300, marginBottom: 0}}>
+                Website: {specifcUser.website}  </p>
+                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}>
+               Linkedin: {specifcUser.linkedin} 
+                </p>
+
+
+               
+
+               
 
 
                 <Row>

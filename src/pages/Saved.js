@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, DropdownMenu, DropdownToggle, Row, Col, UncontrolledButtonDropdown, DropdownItem, CardBody } from 'reactstrap';
+import { Button, DropdownMenu, DropdownToggle, Row, Col, UncontrolledButtonDropdown, DropdownItem, CardBody, Table } from 'reactstrap';
 import Posts from '../components/Posts';
 import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
@@ -95,7 +95,7 @@ class Saved extends React.Component {
                 <Row>
 
                         {
-                            this.state.extraInfo["saved"].map(user => {
+                            this.state.extraInfo["saved"].sort((a, b) => b.prob - a.prob).map(user => {
                                 return (
                                 <Col sm={5} className="mb-3">
                                  <Card style={{overflowY: 'scroll', borderRadius: 15, border: 'none', boxShadow: 'rgba(0, 0, 0, 0.08) 0px 8px 16px 0px'}}>
@@ -113,16 +113,24 @@ class Saved extends React.Component {
 
                                     <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> About </p>
                                     <Row>
-                                    {Object.values(user.interests).map(interest => {
+                                        <Table>
+                                            <tbody>
+                                        {Object.keys(user.interests).map(interest => {
 
-                                        return (
-                                            <Col>
-                                            <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>{interest}</p>
-                                            </Col>
-                                        )
-                                    })}
-                                    </Row>
-                                    <br></br>
+                                            var interestName = interest[0].toUpperCase() + interest.substring(1, interest.length)
+                                            var value = user.interests[interest][0].toUpperCase() + user.interests[interest].substring(1, user.interests[interest].length)
+
+                                            return (
+                                                <tr>
+                                                    <th> {interestName} </th>
+                                                    <th> {value}</th>
+                                                </tr>
+                                            )
+                                        })}
+                                        </tbody>
+                                        </Table>
+                                        </Row>
+                                                            <br></br>
 
 
                                     <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300, marginBottom: 0}}>
