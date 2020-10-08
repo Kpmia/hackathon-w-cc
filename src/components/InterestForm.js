@@ -23,7 +23,6 @@ const InterestForm = ({...props}) => {
 
     const finishForm = () => {
         props.user = {...props.user, interests}
-        console.log(props.user.uid)
         db.firestore().collection('users').doc(props.user.uid).set(props.user).then(success => {
             giveReccomendations()
             alert('Successful!')
@@ -74,7 +73,6 @@ const InterestForm = ({...props}) => {
         } else {
             db.firestore().collection('users').doc(recs[index].uid).get().then(profile => {
                 chooseUser(profile.data())
-                console.log(profile.data())
                 getForm(false)
             })
         }
@@ -86,8 +84,19 @@ const InterestForm = ({...props}) => {
     }
 
 
-    const acceptUser = () => {
+    const addToPortfolio = () => {
+        var portfolio = []
+        db.firestore().collection('users').doc(props.user.role).get().then(profile => {
+            portfolio = profile.data()
+            console.log(portfolio["saved"])
+            // portfolio["saved"] = []
+            // portfolio["saved"].push(specifcUser)
+         
 
+            // db.firestore().collection('users').doc(props.user.role).set({
+
+            // })
+        })
     }
 
     const updateInterests = (key, val) => {
@@ -192,12 +201,20 @@ const InterestForm = ({...props}) => {
                 {specifcUser.displayName}
                 <br></br>
                 {specifcUser.role}
+                {specifcUser.companyName}
+              
+
+                <p> ABOUT </p>
                 {Object.values(specifcUser.interests).map(interest => {
                     return (
                         <p> {interest}</p>
                     )
                 })}
                 <br></br>
+
+                <p> INFO </p>
+                {specifcUser.website}
+                {specifcUser.linkedin}
                
 
                 {
@@ -228,8 +245,10 @@ const InterestForm = ({...props}) => {
 
 
 
-                <Button onClick={() => nextUser()}> Accept </Button>
-                 <Button onClick={() => nextUser()}> Next </Button>
+                <Button onClick={() => addToPortfolio()}> Add to Portfolio </Button>
+                 <Button onClick={() => nextUser()}>Skip </Button>
+                 <Button onClick={() => window.location.href = '/'}> Done </Button>
+
 
                 </div>
                 }

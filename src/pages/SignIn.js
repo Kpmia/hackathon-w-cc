@@ -17,12 +17,15 @@ class SignIn extends React.Component {
             password: '',
             email: '',
             displayName: '',
+            website: '',
+            linkedin: '',
+            company: '',
             role: '' 
         }
     }
 
     signUp = () => {
-        AuthManager.signUp(this.state.email, this.state.password, this.state.displayName, this.state.role)
+        AuthManager.signUp(this.state.email, this.state.password, this.state.displayName, this.state.role, this.state.company, this.state.website, this.state.linkedin)
     }
 
     login = () => {
@@ -55,6 +58,14 @@ class SignIn extends React.Component {
                 Role
                 <input onChange={(text) => this.setState({ role : text.target.value })} placeholder="enter your role" />
 
+                Linkedin
+                <input onChange={(text) => this.setState({ linkedin : text.target.value })} placeholder="enter your Linkedin" />
+
+                Website
+                <input onChange={(text) => this.setState({ website : text.target.value })} placeholder="enter your site" />
+
+                Company
+                <input onChange={(text) => this.setState({ company : text.target.value })} placeholder="enter your company" />
 
                 <Button onClick={this.signUp}> Sign Up </Button>
 

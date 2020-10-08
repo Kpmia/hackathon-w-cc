@@ -15,11 +15,14 @@ const AuthManager = {
         }
     },
 
-    signUp: async(email, password, displayName, role) => {
+    signUp: async(email, password, displayName, role, companyName, website, linkedin) => {
         try {
             await db.auth().createUserWithEmailAndPassword(email, password).then(result => {
                 db.firestore().collection('users').doc(result.user.uid).set({
                     email: email,
+                    companyName: companyName,
+                    website: website,
+                    linkedin: linkedin,
                     uid: result.user.uid,
                     displayName: displayName,
                     role: role

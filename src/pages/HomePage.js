@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, DropdownItem } from 'reactstrap';
+import { Button, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, DropdownItem, CardBody } from 'reactstrap';
 import Posts from '../components/Posts';
 import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
@@ -8,7 +8,12 @@ import ProfileInfo from '../networking/ProfileInfo';
 import firebase from 'firebase'
 import Directs from '../components/Directs';
 import LoadingScreen from '../components/LoadingScreen';
+import { Avatar, Input, Tooltip, Zoom } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 
+
+
+const channelList = ["Funding", "Mentors", "Off-Topic", "General"]
 
 class HomePage extends React.Component {
     constructor() {
@@ -19,7 +24,9 @@ class HomePage extends React.Component {
             displayName: '',
             post: '',
             allUsers: [],
-            channels: '',
+            extraInfo: [],
+            channels: 'Funding',
+            channel: 'Funding',
             personalMessage: '',
             directMessage: '',
             allMessages: '', 
@@ -31,11 +38,16 @@ class HomePage extends React.Component {
 
 
      makePost = () => {
-        PostsManager.writePost(this.state.post, this.state.channels, this.userInfo)
+        PostsManager.writePost(this.state.post, this.state.channels, this.userInfo, this.state.extraInfo)
      }
 
      findConversation = () => {
          db.firestore().collection('conversations').doc(this.userInfo.uid + this.state.targ).get()
+     }
+
+     switchChannels = (channel) => {
+         this.setState({ channel : channel })
+         this.setState({ channels : channel })
      }
 
      messageUser = () => {
@@ -54,8 +66,13 @@ class HomePage extends React.Component {
         db.auth().onAuthStateChanged(async(user) => {
             if (user) {
                 this.userInfo = user;
-            }    
+                db.firestore().collection('users').doc(user.uid).get().then(snap => {
+                    this.setState({ extraInfo : snap.data() })
+                })
+            }
         })
+
+    
 
         const users = []
         db.firestore().collection('users').get().then(snap => {
@@ -79,8 +96,10 @@ class HomePage extends React.Component {
       
 
         return (
-            <div style={{background: 'linear-gradient(112.68deg, #F5F6F9 18.37%, #EFF0F4 50.92%, #E5E7ED 98.49%)'}}>
-sfsdf
+            <div style={{background: 'linear-gradient(112.68deg, #F5F6F9 18.37%, #EFF0F4 50.92%, #E5E7ED 98.49%)', overflowY: 'hidden'}}>
+
+
+                <Avatar style={{position: 'absolute', top: 20, right: 60}} src={this.userInfo.photoURL} />
                 <div 
                 style={{
                     background: 'white',
@@ -110,23 +129,38 @@ sfsdf
                     position: 'absolute',
                     width: 180,
                     top: 20,
+                    padding: 30,
                     marginLeft: 270,
-                    height: '100%',
+                    height: '96%',
                     bottom: 60,
                     borderRadius: 10,
                 }}>
-                      <UncontrolledButtonDropdown>
-                    <DropdownToggle> { this.state.channels ? this.state.channels : "Channel: Channels"}  </DropdownToggle>
-                    <DropdownMenu onClick={(val) => this.setState({ channels : val.target.value })}>
-                        <DropdownItem value="Funding"> Funding </DropdownItem>
-                        <DropdownItem value="Mentors"> Mentors </DropdownItem>
-                        <DropdownItem value="Events"> Events </DropdownItem>
-                        <DropdownItem value="Off-Topic"> Off-Topic </DropdownItem>
-                        <DropdownItem value="General"> General </DropdownItem>
-                    </DropdownMenu>
+
+                    <br></br>
+                    <br></br>
+                    <br></br>
 
 
-                </UncontrolledButtonDropdown>
+                     <p style={{color: 'white', textAlign: 'center', fontWeight: 600, letterSpacing: '0.11em', marginBottom: 44 }}> CHATS </p>
+
+
+                {
+                    channelList.map(channel => {
+                        return (
+                            <div>
+                                <p style={{cursor: 'pointer', marginBottom: 24, color: 'white', lineHeight: '20px', fontSize: 16}} onClick={() => this.switchChannels(channel)}> {channel} </p>
+                            </div>
+                        )
+                    })
+                }
+
+                <br></br>
+                <br></br>
+
+             
+
+             <p style={{color: 'white', textAlign: 'center', fontWeight: 600, letterSpacing: '0.11em' }}> DIRECTS </p>
+
 
 
 
@@ -136,23 +170,46 @@ sfsdf
                 <div 
                 style={{
                     marginLeft: 470,
-                    padding: 20,
-                    top: 20,
+                    padding: 0,
+                    top: -10,
                     marginTop: 20,
-                    height: 600,
+                    height: 750,
                     overflowY: 'auto',
                     background: 'rgba(255, 255, 255, 0.58)',
                     borderRadius: 26, 
-                    width: 550,
+                    width: 650,
                     
                 }}>
-                    <br></br>
-                    <p style={{fontWeight: 'bold', fontSize: 22}}> General </p>
-                <Posts posts={this.state.allPosts} />
+                    <div style={{height: 60, position: 'sticky', top: 0, padding: 30, left: 0, width: '100%', background: ' #F9FAFB'}}>
+                    <p style={{fontWeight: 'bold', fontSize: 22, }}> {this.state.channel} </p>
+                    </div>
 
-                <input onChange={(text) => this.setState({ post: text.target.value })} placeholder="write a post" />
+                <div style={{padding: 40}}>
 
-                <Button onClick={this.makePost}> Make post </Button>
+              
+                <Posts channel={this.state.channel} switchChannel={this.switchChannels} posts={this.state.allPosts} />
+                </div>
+
+
+                <div style={{
+                    position: 'sticky',
+                    bottom: 20,
+                    zIndex: 999,
+                    width: '100%',
+                    justifyContent: 'center',
+                    height: 100,
+                    padding: 10
+                }}>
+
+                <Card style={{boxShadow: '19px 31px 31px rgba(0, 0, 0, 0.11)', outline: 'none', border: 'none', borderRadius: 10}}>
+                    <CardBody>
+                        <Input style={{width: '500px'}}  onChange={(text) => this.setState({ post: text.target.value })} placeholder="Share your feelings..." />
+                        <Tooltip placeholder="ok" placement="top" TransitionComponent={Zoom}>
+                        <img onClick={this.makePost} style={{marginTop: -10, cursor: 'pointer'}} className="float-right" src={require('../assets/makepost.svg')} />
+                        </Tooltip>
+                    </CardBody>
+                </Card>
+                </div>
 
 
                 </div>
@@ -162,13 +219,58 @@ sfsdf
                     position: 'absolute',
                     boxShadow: '34px 53px 77px rgba(176, 183, 192, 0.4)',
                     borderRadius: 28,
-                    top: 100,
+                    padding: 0,
+                    top: 80,
                     right: 40,
-                    width: 285,
-                    height: '80%',
+                    width: 305,
+                    height: '75%',
+                }}>
+                    <div style={{
+                        padding: 30}}>
+
+                    <p style={{color: '#242428', fontSize: 18, fontWeight: 'bold', marginBottom: 0}}> Jessica Williams </p>
+                    <p style={{color: '#B4B4B4', fontWeight: 'normal', fontSize: 15, marginBottom: 7, }}> Investor @ VC Ventures </p>
+                    <hr style={{border: ' 1px solid #E1E1E1', marginTop: 0}} />
+                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
+                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ VC Ventures | 12:39pm </p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>This is a new message. Add some plain old text, so that there is some stuff here when I code to see better. Random text for UI filler.</p>
+                     </p>
+                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
+                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ VC Ventures | 12:39pm </p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>This is a new message. Add some plain old text, so that there is some stuff here when I code to see better. Random text for UI filler.</p>
+                     </p>
+                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
+                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ VC Ventures | 12:39pm </p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>This is a new message. Add some plain old text, so that there is some stuff here when I code to see better. Random text for UI filler.</p>
+                     </p>
+
+                    </div>
+
+                    <div style={{
+                    position: 'sticky',
+                    bottom: 30,
+                    zIndex: 999,
+                    width: '100%',
+                    marginTop: -60,
+                    justifyContent: 'center',
+                    height: 100,
+                    padding: 5
                 }}>
 
-                    <p> GENERAL CHATS </p>
+                <Card style={{boxShadow: '19px 31px 31px rgba(0, 0, 0, 0.11)', outline: 'none', border: 'none', borderRadius: 10}}>
+                    <CardBody>
+                        <Input style={{width: '160px'}}  placeholder="Share your feelings..." />
+                        <Tooltip placeholder="ok" placement="top" TransitionComponent={Zoom}>
+                        <img  style={{marginTop: 0, cursor: 'pointer'}} className="float-right" src={require('../assets/senddirect.svg')} />
+                        </Tooltip>
+                    </CardBody>
+                </Card>
+                </div>
+
+
+
+
+
                 </div>
 
 
