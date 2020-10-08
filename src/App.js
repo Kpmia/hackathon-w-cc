@@ -11,6 +11,7 @@ import Saved from './pages/Saved';
 
 
 
+
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
 };
@@ -40,6 +41,7 @@ class App extends React.Component {
         
         <BrowserRouter basename={getBasename()}>
             <Switch>
+              <Route exact path='/landing'  component={LandingPage}/>
               <Route exact path='/' component={this.state.logged ? HomePage : SignIn } />
               <Route exact path='/login'  component={SignIn}/>
               <Route exact path='/interests'  component={this.state.logged ? Interests : SignIn } />
