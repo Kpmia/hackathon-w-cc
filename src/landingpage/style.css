@@ -13,7 +13,7 @@ body {
   }
 
   h1,h2,h3{
-      color:#8e7dbe;
+      color:#8E7DBE;
       font-family: 'DM Sans', sans-serif;
   }
   h1{
@@ -31,7 +31,7 @@ body {
     display:inline-flexbox;
     position:relative;
     width: 100%;
-    background:#8e7dbe;
+    background:#8E7DBE;
     padding:20px;
     overflow: hidden;
   }
@@ -64,7 +64,7 @@ body {
     text-align:center;
     width:100%;
     padding:30px;
-    background:#fff;
+    background-color:#fff;
   }
   #featimgcontainer{
     display:inline-flex;
