@@ -1,8 +1,9 @@
 import { requirePropFactory } from '@material-ui/core';
 import React, { createElement, useState } from 'react';
 import FadeIn from 'react-fade-in';
-import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown, UncontrolledDropdown } from 'reactstrap';
+import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, Toast, UncontrolledButtonDropdown, UncontrolledDropdown } from 'reactstrap';
 import db from '../firebase';
+import { toast, ToastContainer, Slide } from 'react-toastify';
 
 
 const chooseRole = (userRole) => {
@@ -38,7 +39,7 @@ const InterestForm = ({...props}) => {
         props.user = {...props.user, interests}
         db.firestore().collection('users').doc(props.user.uid).set(props.user).then(success => {
             giveReccomendations()
-            alert('Successful!')
+            toast('Submitted form!')
         })
     }
     const giveReccomendations = () => {
@@ -100,16 +101,19 @@ const InterestForm = ({...props}) => {
         db.firestore().collection('users').doc(props.user.uid).get().then(profile => {
             var portfolio = []
             portfolio = profile.data()
-            console.log(portfolio)
             if (portfolio["saved"] == undefined) {
                 portfolio["saved"] = []
                 specifcUser["prob"] = recommendations[index].prob
                 portfolio["saved"].push(specifcUser)
                 db.firestore().collection('users').doc(props.user.uid).set(portfolio)
+                toast('Saved to your portfolio!')
+                
             } else {
                 specifcUser["prob"] = recommendations[index].prob
                 portfolio["saved"].push(specifcUser)
                 db.firestore().collection('users').doc(props.user.uid).set(portfolio) 
+                toast('Saved to your portfolio!')
+
             }
         })
     }
@@ -125,8 +129,7 @@ const InterestForm = ({...props}) => {
         if (steps == 0) {
            return <div>
                <br></br>
-               <br></br>
-               <br></br>
+              
                <p> {props.user.role == "owner" ?
                 <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
                     Which stage is your business at? </p> : 
@@ -158,8 +161,7 @@ const InterestForm = ({...props}) => {
         if (steps == 1) {
             return <div>
                 <br></br>
-               <br></br>
-               <br></br>
+               
                  <p> {props.user.role == "owner" ?
                 <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
                     Which industry is your business in? 
@@ -193,8 +195,7 @@ const InterestForm = ({...props}) => {
          if (steps == 2) {
             return <div>
                 <br></br>
-               <br></br>
-               <br></br>
+              
                   <p> {props.user.role == "owner" ?
                 <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
                     How much are you looking to raise?
@@ -226,8 +227,7 @@ const InterestForm = ({...props}) => {
          if (steps == 3) {
             return <div>
                 <br></br>
-               <br></br>
-               <br></br>
+        
                  <p> {props.user.role == "owner" ?
                 <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
                     How many co-founders do you have in your team? 
@@ -261,8 +261,7 @@ const InterestForm = ({...props}) => {
          if (steps == 4) {
             return <div>
                 <br></br>
-               <br></br>
-               <br></br>
+              
                  <p> {props.user.role == "owner" ?
                 <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>
                     What level of degree are you seeking?                    </p> : 
@@ -309,7 +308,7 @@ const InterestForm = ({...props}) => {
 
             {recommendations[index] ? 
                                     <p style={{position: 'absolute', color: '#4B4D5B'}} className="float-right">{recommendations[index].prob}% Match </p>
-: null }
+                : null }
 
             
 
@@ -337,9 +336,9 @@ const InterestForm = ({...props}) => {
 
 
                 <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300, marginBottom: 0}}>
-                {specifcUser.website}  </p>
+                Website: {specifcUser.website}  </p>
                 <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}>
-                {specifcUser.linkedin} 
+               Linkedin: {specifcUser.linkedin} 
                 </p>
 
 

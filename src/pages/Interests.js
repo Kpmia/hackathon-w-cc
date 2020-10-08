@@ -9,6 +9,8 @@ import firebase from 'firebase'
 import InterestForm from '../components/InterestForm';
 import LoadingScreen from '../components/LoadingScreen';
 import { Card } from '@material-ui/core';
+import { toast, ToastContainer, Slide, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class Interests extends React.Component {
@@ -51,18 +53,29 @@ class Interests extends React.Component {
             <div className="authBody" style={{background: 'linear-gradient(181.17deg, #8E9DE8 -156.12%, #FFFFFF 74.97%)'}}>  
             <br></br>          
     
+          
             <div className="signInBody">
     
                 <br></br>
-                <Card style={{height: 550, overflowY: 'scroll', width: 400,  borderRadius: 15, border: 'none', boxShadow: 'rgba(0, 0, 0, 0.08) 0px 8px 16px 0px'}}>
+                <Card style={{ overflowY: 'scroll', width: 450,  borderRadius: 15, border: 'none', boxShadow: 'rgba(0, 0, 0, 0.08) 0px 8px 16px 0px'}}>
                     <CardBody>
-
+                   
                 <InterestForm user={this.state.userInfo} />
-
+                <ToastContainer
+            position="top-right"
+            transition={Zoom}
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+           />
                 </CardBody>
                 </Card>
                 </div>
-
             </div>
         )
     }

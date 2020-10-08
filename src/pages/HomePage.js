@@ -10,6 +10,7 @@ import Directs from '../components/Directs';
 import LoadingScreen from '../components/LoadingScreen';
 import { Avatar, Input, Tooltip, Zoom } from '@material-ui/core';
 import { Card } from '@material-ui/core';
+import FadeIn from 'react-fade-in';
 
 
 
@@ -98,7 +99,6 @@ class HomePage extends React.Component {
         return (
             <div style={{background: 'linear-gradient(112.68deg, #F5F6F9 18.37%, #EFF0F4 50.92%, #E5E7ED 98.49%)', overflowY: 'hidden'}}>
 
-
                 <Avatar style={{position: 'absolute', top: 20, right: 60}} src={this.userInfo.photoURL} />
                 <div 
                 style={{
@@ -114,10 +114,11 @@ class HomePage extends React.Component {
                     <img src={require('../assets/logo.svg')} />
 
                     <br></br>
-                    <p> MENU </p>
-                    <p> MENU </p>
-                    <p> MENU </p>
-                    <p> MENU </p>
+                    <p style={{textAlign: 'center', color: 'rgba(90, 94, 98, 0.67)', fontSize: 15, marginBottom: 30, letterSpacing: ' 0.11em'}}> MENU </p>
+                    <div style={{paddingLeft: 30}}>
+                    <p style={{fontSize: 15, cursor: 'pointer', marginBottom: 20, color: 'rgba(90, 94, 98, 0.67)', }}> General Channels </p>
+                    <p onClick={() => window.location.href = '/saved'} style={{fontSize: 15, cursor: 'pointer', marginBottom: 24, color: 'rgba(90, 94, 98, 0.67)', }}> Client CRM</p>
+                    </div>
 
                    
 
@@ -186,8 +187,9 @@ class HomePage extends React.Component {
 
                 <div style={{padding: 40}}>
 
-              
+                <FadeIn delay="400">
                 <Posts channel={this.state.channel} switchChannel={this.switchChannels} posts={this.state.allPosts} />
+                </FadeIn>
                 </div>
 
 
@@ -286,11 +288,11 @@ class HomePage extends React.Component {
                 <br></br>
 
             
-              
-                
+            
 
 
             </div>
+
             </div>
         )
     }
