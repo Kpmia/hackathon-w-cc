@@ -1,6 +1,6 @@
 import { requirePropFactory } from '@material-ui/core';
 import React, { createElement, useState } from 'react';
-import { Button, DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, UncontrolledDropdown } from 'reactstrap';
+import { Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledButtonDropdown, UncontrolledDropdown } from 'reactstrap';
 import db from '../firebase';
 
 
@@ -14,6 +14,7 @@ const chooseRole = (userRole) => {
 
 const InterestForm = ({...props}) => {
     const [interests, updateInterest] = useState({})
+    console.log(interests)
     const [steps, addStep] = useState(0)
     const [form, getForm] = useState(true)
     const [specifcUser, chooseUser] = useState([])
@@ -109,8 +110,9 @@ const InterestForm = ({...props}) => {
     const showForm = () => {
         if (steps == 0) {
            return <div>
+               <p> {props.user.role == "owner" ? "Which stage is your business at?" : "Which stage are you looking for businesses in?" }  </p>
                 <UncontrolledButtonDropdown>
-                        <DropdownToggle> {interests? interests["interests"] : null } </DropdownToggle>
+                        <DropdownToggle> {interests["interests"]? interests["interests"] : null } </DropdownToggle>
                         <DropdownMenu onClick={(val) => updateInterests("interests", val.target.value)}>
                             <DropdownItem value="Funding"> Funding </DropdownItem>
                             <DropdownItem value="Mentors"> Mentors </DropdownItem>
@@ -193,61 +195,85 @@ const InterestForm = ({...props}) => {
     return (
         <div>
 
+            {recommendations[index] ? 
+                                    <p style={{position: 'absolute', color: '#4B4D5B'}} className="float-right">{recommendations[index].prob}% Match </p>
+: null }
+
             
 
             {form ? showForm() : <div>
+                <Row style={{justifyContent: 'center'}}>
+                <img src={require('../assets/matcheduser.svg')} />
+                </Row>
+               <p style={{color: '#4B4D5B', textAlign: 'center', fontSize: 22, fontWeight: 600, marginBottom: 8}}> {specifcUser.displayName}</p>
+                <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 17, fontWeight: 300, marginBottom: 2}}>  {specifcUser.role} @ {specifcUser.companyName}</p>
 
-
-                {specifcUser.displayName}
-                <br></br>
-                {specifcUser.role}
-                {specifcUser.companyName}
-              
-
-                <p> ABOUT </p>
+                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}> About </p>
+                <Row>
                 {Object.values(specifcUser.interests).map(interest => {
+
                     return (
-                        <p> {interest}</p>
+                        <Col>
+                        <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>{interest}</p>
+                        </Col>
                     )
                 })}
+                </Row>
                 <br></br>
 
-                <p> INFO </p>
-                {specifcUser.website}
-                {specifcUser.linkedin}
+
+                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300, marginBottom: 0}}>
+                {specifcUser.website}  </p>
+                <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}>
+                {specifcUser.linkedin} 
+                </p>
+
+
                
 
                 {
                     recommendations[index] ? 
 
-                    <div>
-                        {recommendations[index].prob}% Match For You!
+                    <div >
 
-                        Your Matches Are:
-                        <br></br>
+            <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}> Your Matches </p>
+                        <Row>
 
                          {recommendations[index].matches.map(match => {
                     return (
                         <div>
-                            {match}
+                        <Col>
+                        <p style={{color: '#4B4D5B',textAlign: 'center', fontSize: 14, fontWeight: 300,}}>{match}</p>
+                            </Col>
                          </div>
+                         
                     )
                 })}
+                      </Row>
+
 
 
                     </div>
                     :
 
-                    "No more users left : (. Redirecting back to chat channels."
+                    <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 16, fontWeight: 300,}}>
+                        No more users left. Restarting the round.
+                    </p>
                     
                 }
-               
 
 
+                <Row>
+                    <Col><Button className="btn-block" style={{ fontSize: 14,  fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}}onClick={() => addToPortfolio()}> Save </Button>
+                    </Col>
+                    <Col>
 
-                <Button onClick={() => addToPortfolio()}> Add to Portfolio </Button>
-                 <Button onClick={() => nextUser()}>Skip </Button>
-                 <Button onClick={() => window.location.href = '/'}> Done </Button>
+               <Button className="btn-block" style={{ fontSize: 14,  fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}} onClick={() => nextUser()}>Skip </Button>
+               </Col>
+               <Col>
+               <Button className="btn-block" style={{ fontSize: 14,  fontWeight: 600, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}} onClick={() => window.location.href = '/'}> Done </Button>
+               </Col>
+                 </Row>
 
 
                 </div>
