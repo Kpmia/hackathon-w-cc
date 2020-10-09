@@ -30,13 +30,13 @@ class HomePage extends React.Component {
             channel: 'Funding',
             personalMessage: '',
             directMessage: '',
-            allMessages: '', 
+            allMessages: '',
             isLoading: true,
             getAllUsers: [],
         }
     }
 
- 
+
 
 
      makePost = () => {
@@ -58,7 +58,7 @@ class HomePage extends React.Component {
             uid: this.userInfo.uid,
             displayName: this.userInfo.displayName,
             timestamp: firebase.firestore.Timestamp.fromDate(new Date())
-        })     
+        })
      }
 
 
@@ -74,7 +74,7 @@ class HomePage extends React.Component {
             }
         })
 
-    
+
 
         const users = []
         db.firestore().collection('users').get().then(snap => {
@@ -92,17 +92,17 @@ class HomePage extends React.Component {
     }
 
     render() {
-        
+
         if (this.state.isLoading) {
             return <LoadingScreen />
         }
-      
+
 
         return (
             <div style={{background: 'linear-gradient(112.68deg, #F5F6F9 18.37%, #EFF0F4 50.92%, #E5E7ED 98.49%)', overflowY: 'hidden'}}>
 
                 <Avatar style={{position: 'absolute', top: 20, right: 60}} src={this.userInfo.photoURL} />
-                <div 
+                <div
                 style={{
                     background: 'white',
                     width: 260,
@@ -122,7 +122,7 @@ class HomePage extends React.Component {
                     <p onClick={() => window.location.href = '/saved'} style={{fontSize: 15, cursor: 'pointer', marginBottom: 24, color: 'rgba(90, 94, 98, 0.67)', }}> Client CRM</p>
                     </div>
 
-                   
+
 
                     <img style={{position: 'absolute', bottom: 0, left: 0}} src={require('../assets/blob.svg')} />
                 </div>
@@ -161,7 +161,7 @@ class HomePage extends React.Component {
                 <br></br>
                 <br></br>
 
-             
+
 
              <p style={{color: 'white', textAlign: 'center', fontWeight: 600, marginBottom: 44 , letterSpacing: '0.11em' }}> DIRECTS </p>
               {
@@ -183,7 +183,7 @@ class HomePage extends React.Component {
                     {/* <p style={{fontWeight: 'bold', fontSize: 22}}> GENERAL CHATS </p> */}
                 </div>
 
-                <div 
+                <div
                 style={{
                     marginLeft: 470,
                     padding: 0,
@@ -192,9 +192,9 @@ class HomePage extends React.Component {
                     height: 750,
                     overflowY: 'auto',
                     background: 'rgba(255, 255, 255, 0.58)',
-                    borderRadius: 26, 
+                    borderRadius: 26,
                     width: 650,
-                    
+
                 }}>
                     <div style={{height: 60, position: 'sticky', top: 0, padding: 30, left: 0, width: '100%', background: ' #F9FAFB'}}>
                     <p style={{fontWeight: 'bold', fontSize: 22, }}> {this.state.channel} </p>
@@ -249,16 +249,16 @@ class HomePage extends React.Component {
                     <p style={{color: '#B4B4B4', fontWeight: 'normal', fontSize: 15, marginBottom: 7, }}> Investor @ VC Ventures </p>
                     <hr style={{border: ' 1px solid #E1E1E1', marginTop: 0}} />
                      <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
-                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ VC Ventures | 12:39pm </p>
-                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>This is a new message. Add some plain old text, so that there is some stuff here when I code to see better. Random text for UI filler.</p>
+                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ Golden Ventures | 12:39pm </p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>Hi Shirling, I'm Kimia! I'm an investor at Golden Ventures. I'm interested in chatting with you sometime about Sunshine Atom. Are you free to do a Zoom call soon?</p>
+                     </p>
+                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Shirling Xu </p>
+                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Owner @ Sunshine Atom | 12:45pm </p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>Hi Kimia, I would love to. Let's set up a time to meet. How does Friday at 4pm EDT sound?</p>
                      </p>
                      <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
-                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ VC Ventures | 12:39pm </p>
-                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>This is a new message. Add some plain old text, so that there is some stuff here when I code to see better. Random text for UI filler.</p>
-                     </p>
-                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
-                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ VC Ventures | 12:39pm </p>
-                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>This is a new message. Add some plain old text, so that there is some stuff here when I code to see better. Random text for UI filler.</p>
+                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ Golden Ventures | 12:39pm </p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>That works perfectly for me. I'll speak with you then. Take care!</p>
                      </p>
 
                     </div>
@@ -297,13 +297,13 @@ class HomePage extends React.Component {
 
                 {/* <Directs allUsers={this.state.allUsers} userInfo={this.userInfo} /> */}
 
-            
+
                 <br></br>
                 <br></br>
                 <br></br>
 
-            
-            
+
+
 
 
             </div>
