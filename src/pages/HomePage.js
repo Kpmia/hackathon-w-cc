@@ -245,8 +245,8 @@ class HomePage extends React.Component {
                     <div style={{
                         padding: 30}}>
 
-                    <p style={{color: '#242428', fontSize: 18, fontWeight: 'bold', marginBottom: 0}}> Jessica Williams </p>
-                    <p style={{color: '#B4B4B4', fontWeight: 'normal', fontSize: 15, marginBottom: 7, }}> Investor @ VC Ventures </p>
+                    <p style={{color: '#242428', fontSize: 18, fontWeight: 'bold', marginBottom: 0}}> Kimia Kavanroodi </p>
+                    <p style={{color: '#B4B4B4', fontWeight: 'normal', fontSize: 15, marginBottom: 7, }}> Investor @ Golden Ventures </p>
                     <hr style={{border: ' 1px solid #E1E1E1', marginTop: 0}} />
                      <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
                        <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ Golden Ventures | 12:39pm </p>
