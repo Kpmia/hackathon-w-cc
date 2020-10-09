@@ -90,7 +90,7 @@ class Saved extends React.Component {
                 <p style={{fontWeight: 'bold', fontSize: 22, }}> Saved Clients <Button onClick={() => window.location.href = '/interests'}  style={{ fontSize: 14, marginLeft: 10,  fontWeight: 400, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}} > Make More Matches </Button>
  </p>
                 {
-                    this.state.extraInfo["saved"] ? 
+                    this.state.extraInfo ? 
 
                 <Row>
 
