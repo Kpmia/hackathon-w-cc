@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import FadeIn from 'react-fade-in';
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledAlert, UncontrolledButtonDropdown } from 'reactstrap';
 import db from '../firebase';
 import PostsManager from '../networking/PostsManager';
@@ -33,12 +34,14 @@ const Posts = ({...props}) =>  {
                         if(post.channel == props.channel) {
                             console.log(post)
                             return (
+                                <FadeIn>
                                 <div onClick={() => console.log(post)}>
                                 <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> {post.displayName} </p>
                                     <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> {post.role} @  {post.company}  {toDateTime(post.timestamp.seconds).getUTCHours() +  ":" + toDateTime(post.timestamp.seconds).getUTCMinutes()} </p>
                                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>{post.message} </p>
                                 </p>
                                 </div>
+                                </FadeIn>
                             )
                         }
                         })

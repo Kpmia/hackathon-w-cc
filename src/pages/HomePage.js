@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, DropdownItem, CardBody } from 'reactstrap';
+import { Button, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown, DropdownItem, CardBody, Col, Row } from 'reactstrap';
 import Posts from '../components/Posts';
 import db from '../firebase';
 import AuthManager from '../networking/AuthManager';
@@ -31,7 +31,8 @@ class HomePage extends React.Component {
             personalMessage: '',
             directMessage: '',
             allMessages: '', 
-            isLoading: true
+            isLoading: true,
+            getAllUsers: [],
         }
     }
 
@@ -91,6 +92,7 @@ class HomePage extends React.Component {
     }
 
     render() {
+        
         if (this.state.isLoading) {
             return <LoadingScreen />
         }
@@ -130,6 +132,7 @@ class HomePage extends React.Component {
                     position: 'absolute',
                     width: 180,
                     top: 20,
+                    overflowY: 'scroll',
                     padding: 30,
                     marginLeft: 270,
                     height: '96%',
@@ -160,16 +163,19 @@ class HomePage extends React.Component {
 
              
 
-             <p style={{color: 'white', textAlign: 'center', fontWeight: 600, letterSpacing: '0.11em' }}> DIRECTS </p>
-             
-             {console.log(this.state.allUsers)}
-             {/* {
+             <p style={{color: 'white', textAlign: 'center', fontWeight: 600, marginBottom: 44 , letterSpacing: '0.11em' }}> DIRECTS </p>
+              {
                  this.state.allUsers.map(user => {
-                     return (
 
+                     return (
+                        <Col style={{marginLeft: 5}} >
+                        <Tooltip title={user.displayName}>
+                        <Avatar style={{width: 50, height: 50, marginLeft: 5, marginBottom: 5}} src={user.photo} />
+                        </Tooltip>
+                        </Col>
                      )
                  })
-             } */} 
+             }
 
 
 
@@ -271,7 +277,7 @@ class HomePage extends React.Component {
                 <Card style={{boxShadow: '19px 31px 31px rgba(0, 0, 0, 0.11)', outline: 'none', border: 'none', borderRadius: 10}}>
                     <CardBody>
                         <Input style={{width: '160px'}}  placeholder="Share your feelings..." />
-                        <Tooltip placeholder="ok" placement="top" TransitionComponent={Zoom}>
+                        <Tooltip title="Send a Post" >
                         <img  style={{marginTop: 0, cursor: 'pointer'}} className="float-right" src={require('../assets/senddirect.svg')} />
                         </Tooltip>
                     </CardBody>
