@@ -23,6 +23,7 @@ const AuthManager = {
                     companyName: companyName,
                     website: website,
                     linkedin: linkedin,
+                    photo: result.user.photoURL,
                     uid: result.user.uid,
                     displayName: displayName,
                     role: role

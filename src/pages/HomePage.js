@@ -161,6 +161,15 @@ class HomePage extends React.Component {
              
 
              <p style={{color: 'white', textAlign: 'center', fontWeight: 600, letterSpacing: '0.11em' }}> DIRECTS </p>
+             
+             {console.log(this.state.allUsers)}
+             {/* {
+                 this.state.allUsers.map(user => {
+                     return (
+
+                     )
+                 })
+             } */} 
 
 
 
