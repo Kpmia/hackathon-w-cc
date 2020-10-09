@@ -245,18 +245,18 @@ class HomePage extends React.Component {
                     <div style={{
                         padding: 30}}>
 
-                    <p style={{color: '#242428', fontSize: 18, fontWeight: 'bold', marginBottom: 0}}> Kimia Kavanroodi </p>
+                    <p style={{color: '#242428', fontSize: 18, fontWeight: 'bold', marginBottom: 0}}> Shirling Xu </p>
                     <p style={{color: '#B4B4B4', fontWeight: 'normal', fontSize: 15, marginBottom: 7, }}> Investor @ Golden Ventures </p>
                     <hr style={{border: ' 1px solid #E1E1E1', marginTop: 0}} />
-                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
+                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Shirling Xu </p>
                        <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ Golden Ventures | 12:39pm </p>
-                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>Hi Shirling, I'm Kimia! I'm an investor at Golden Ventures. I'm interested in chatting with you sometime about Sunshine Atom. Are you free to do a Zoom call soon?</p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>Hi Kimia, I'm Shirling! I'm an investor at Golden Ventures. I'm interested in chatting with you sometime about Sunshine Atom. Are you free to do a Zoom call soon?</p>
+                     </p>
+                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
+                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Owner @ Sunshine Atom | 12:45pm </p>
+                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>Hi Shirling, I would love to. Let's set up a time to meet. How does Friday at 4pm EDT sound?</p>
                      </p>
                      <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Shirling Xu </p>
-                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Owner @ Sunshine Atom | 12:45pm </p>
-                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>Hi Kimia, I would love to. Let's set up a time to meet. How does Friday at 4pm EDT sound?</p>
-                     </p>
-                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Kimia Kavanroodi </p>
                        <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ Golden Ventures | 12:39pm </p>
                      <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>That works perfectly for me. I'll speak with you then. Take care!</p>
                      </p>
