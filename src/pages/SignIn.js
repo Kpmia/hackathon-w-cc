@@ -31,11 +31,8 @@ class SignIn extends React.Component {
     }
 
     login = () => {
-        if (this.state.email == '' || this.state.password == '') {
-            return alert('One of the fields is empty');
-        } else {
-            AuthManager.loginFlow(this.state.email, this.state.password)
-        }   
+        AuthManager.loginFlow(this.state.email, this.state.password)
+        
      }
 
 

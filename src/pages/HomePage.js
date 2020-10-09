@@ -245,14 +245,7 @@ class HomePage extends React.Component {
                     <div style={{
                         padding: 30}}>
 
-                    <p style={{color: '#242428', fontSize: 18, fontWeight: 'bold', marginBottom: 0}}> Shirling Xu </p>
-                    <p style={{color: '#B4B4B4', fontWeight: 'normal', fontSize: 15, marginBottom: 7, }}> Investor @ Golden Ventures </p>
-                    <hr style={{border: ' 1px solid #E1E1E1', marginTop: 0}} />
-                     <p>  <p style={{color: ' #322D2D', fontSize: 15, fontWeight: '500',  marginBottom: 2}}> Shirling Xu </p>
-                       <p style={{color: '#B4B4B4',fontSize: 14, marginBottom: 2}}> Investor @ Golden Ventures | 12:39pm </p>
-                     <p style={{color: '#787474', lineHeight: '22px', fontSize: 15}}>Hi Kimia, I'm Shirling! I'm an investor at Golden Ventures. I'm interested in chatting with you sometime about Sunshine Atom. Are you free to do a Zoom call soon?</p>
-                     </p>
-
+                 
                     </div>
 
                     <div style={{
@@ -265,6 +258,18 @@ class HomePage extends React.Component {
                     height: 100,
                     padding: 5
                 }}>
+
+                <br></br>
+
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+
 
                 <Card style={{boxShadow: '19px 31px 31px rgba(0, 0, 0, 0.11)', outline: 'none', border: 'none', borderRadius: 10}}>
                     <CardBody>

@@ -76,18 +76,13 @@ const InterestForm = ({...props}) => {
         if (recommendations[index] == undefined) {
             movdeIndex(0)
         }
-        if (recs == undefined) {
-           if (recommendations[index]) {
-            db.firestore().collection('users').doc(recommendations[index].uid).get().then(profile => {
-                chooseUser(profile.data())
-                getForm(false)
-            })
-           }
-        } else {
-            db.firestore().collection('users').doc(recs[index].uid).get().then(profile => {
-                chooseUser(profile.data())
-                getForm(false)
-            })
+         
+        if (recommendations[index]) {
+        db.firestore().collection('users').doc(recommendations[index].uid).get().then(profile => {
+            console.log(profile.data())
+            chooseUser(profile.data())
+            getForm(false)
+        })
         }
     }
 
@@ -341,11 +336,14 @@ const InterestForm = ({...props}) => {
                 </Table>
                 </Row>
                 {
+                    console.log(recommendations)
+                }
+                {
                     recommendations[index] ? 
 
                     <div >
 
-            <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> Your Preferance </p>
+            <p style={{color: '#4B4D5B',textAlign: 'left', fontSize: 14, fontWeight: 300,}}> Your </p>
                         <Row>
 
                          {recommendations[index].matches.map(match => {

@@ -55,7 +55,6 @@ class Saved extends React.Component {
         if (this.state.isLoading) {
             return <LoadingScreen />
         }
-      
 
         return (
             <div style={{background: 'linear-gradient(112.68deg, #F5F6F9 18.37%, #EFF0F4 50.92%, #E5E7ED 98.49%)', height: '100vh', overflowY: 'auto'}}>
@@ -88,7 +87,7 @@ class Saved extends React.Component {
 
                 <div style={{paddingLeft: 300, paddingTop: 80, overflowY: 'auto', paddingRight: 80}}>
                 <p style={{fontWeight: 'bold', fontSize: 22, }}> Saved Clients <Button onClick={() => window.location.href = '/interests'}  style={{ fontSize: 14, marginLeft: 10,  fontWeight: 400, background: 'none', border: '1px solid #B4B4B4', borderRadius: 7, color: '#B4B4B4'}} > Make More Matches </Button>
- </p>
+                </p>
                 {
                     this.state.extraInfo ? 
 

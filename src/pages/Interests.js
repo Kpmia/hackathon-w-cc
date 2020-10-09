@@ -31,7 +31,7 @@ class Interests extends React.Component {
                 this.userInfo = user;
                 console.log(user)
                 db.firestore().collection('users').doc(user.uid).get().then(res => {
-                    console.log(res)
+                    console.log(res.data())
                     this.setState({ userInfo : res.data() })
                     new Promise((resolve) =>
                             setTimeout(
